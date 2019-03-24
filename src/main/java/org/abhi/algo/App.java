@@ -49,15 +49,15 @@ public class App
 //        Integer[] inputArray = new Integer[] {5, 4, 3, -5, -4, -3, 1, 2, 3, 4, 5};
 //        List<Integer> largestList = DecisionTree.partitionBasedOnTarget(5, inputArray);
 //        System.out.println("The largest list is : " + DecisionTree.printList(largestList));
-
-        List<Integer> maxContigousList = Subsets.maxContiguousSum(-2, 1, -3, 4, -1, 2, 1, -5);
-        System.out.println("The Max Contigous subset is : " + ListUtilities.printList(maxContigousList));
-
-        List<Integer> targettedSubsetImproved = Subsets.partitionBasedOnTarget(0,-2, 1, -3, 4, -1, 2, 1, -5);
-        System.out.println("The targetted subset improved is : " + ListUtilities.printList(targettedSubsetImproved));
-
-        List<List<Integer>> subsets = Subsets.getContiguousSubsets(1, 2, 3);
-        subsets.forEach(subset -> System.out.println("Subsets are : " + ListUtilities.printList(subset)));
-        System.out.println("Subset count is : " + subsets.size());
+//
+//        List<Integer> maxContigousList = Subsets.maxContiguousSum(-2, 1, -3, 4, -1, 2, 1, -5);
+//        System.out.println("The Max Contigous subset is : " + ListUtilities.printList(maxContigousList));
+//
+//        List<Integer> targettedSubsetImproved = Subsets.partitionBasedOnTarget(0,-2, 1, -3, 4, -1, 2, 1, -5);
+//        System.out.println("The targetted subset improved is : " + ListUtilities.printList(targettedSubsetImproved));
+//
+//        List<List<Integer>> subsets = Subsets.getContiguousSubsets(1, 2, 3);
+//        subsets.forEach(subset -> System.out.println("Subsets are : " + ListUtilities.printList(subset)));
+//        System.out.println("Subset count is : " + subsets.size());
     }
 }

@@ -21,7 +21,6 @@ public class DecisionTree {
 
     public static Map<String, List<Integer>> divideListToTwoEqualSets(List<Integer> srcList) {
         List<Integer> workingList = sortedList(srcList, false);
-        System.out.println("The sorted list is : " + workingList.stream().map(String::valueOf).collect(Collectors.joining(" , ")));
         initialize();
         workingList.forEach(DecisionTree::partitionList);
         returnMap.put("firstSet", firstList);
@@ -37,13 +36,10 @@ public class DecisionTree {
         secondList.add(item);
         secondSumDiff = absIntegerDifference(getSumFromIntegerSet(firstList), getSumFromIntegerSet(secondList));
         secondList.remove(item);
-        System.out.println("First Sum difference : " + firstSumDiff + " Second Sum difference : " + secondSumDiff + " for the item : " + item);
         if(firstSumDiff <= secondSumDiff) {
-            System.out.println("Added element to first : " + item);
             firstList.add(item);
         }
         else {
-            System.out.println("Added element to second : " + item);
             secondList.add(item);
         }
     }
