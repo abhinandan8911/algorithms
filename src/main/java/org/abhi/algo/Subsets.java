@@ -23,8 +23,8 @@ public class Subsets {
 
     public static List<Integer> partitionBasedOnTarget(int target, Integer... integers) {
         List<Integer> bestList = new ArrayList<>();
-        List<List<Integer>> listOfContoguousSubsets = getContiguousSubsets(integers);
-        List<List<Integer>> targetMatchingList = listOfContoguousSubsets.stream().filter(ls -> getSumFromIntegerSet(ls) == target).collect(Collectors.toList());
+        List<List<Integer>> contiguousSubsets = getContiguousSubsets(integers);
+        List<List<Integer>> targetMatchingList = contiguousSubsets.stream().filter(ls -> getSumFromIntegerSet(ls) == target).collect(Collectors.toList());
         int maxSize = Integer.MIN_VALUE;
         for(List<Integer> matchingList : targetMatchingList) {
             if(matchingList.size() > maxSize) {

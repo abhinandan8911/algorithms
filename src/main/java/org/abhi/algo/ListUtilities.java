@@ -30,9 +30,9 @@ public class ListUtilities {
         return list.stream().mapToInt(Integer::intValue).sum();
     }
 
-    public static void printMapValues(final Map<String, List<Integer>> sourceMap) {
-        sourceMap.forEach((name, setOfIntegers) -> {
-            String listOfValues = setOfIntegers.stream().map(String::valueOf).collect(Collectors.joining(" , "));
+    public static void printMappedListValues(final Map<String, List<Integer>> sourceMap) {
+        sourceMap.forEach((name, listOfIntegers) -> {
+            String listOfValues = printList(listOfIntegers);
             System.out.println("Name is : " + name + " Value is : " + listOfValues);
         });
     }
@@ -41,7 +41,4 @@ public class ListUtilities {
         return list.stream().map(Objects::toString).collect(Collectors.joining(" , "));
     }
 
-    public static <T> String printFlatList(List<List<T>> list) {
-        return list.stream().flatMap(ls -> ls.stream().map(Objects::toString)).collect(Collectors.joining(" , "));
-    }
 }
