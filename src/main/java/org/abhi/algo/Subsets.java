@@ -71,9 +71,7 @@ public class Subsets {
                     subset.add(integers[i]);
                 }
             }
-            if(!subset.isEmpty()) {
-                subsets.add(subset);
-            }
+            subsets.add(subset);
         }
         return subsets;
     }
@@ -82,7 +80,7 @@ public class Subsets {
         List<String> listOfBitString = new ArrayList<>();
         Double maxNumber = Math.pow(2, src.length) - 1;
         int maxBits = Integer.toBinaryString(maxNumber.intValue()).length();
-        for (int i = 0; i <= maxNumber; i++) {
+        for (int i = 1; i <= maxNumber; i++) {
             String bitRepresentation = Integer.toBinaryString(i);
             String str = "";
             for (int j = 0; j < (maxBits - bitRepresentation.length()); j++) {
