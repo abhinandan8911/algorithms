@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -55,5 +57,13 @@ public class ListUtilitiesTest {
             }
         }
         return isInOrder;
+    }
+
+    @Test
+    public void printMappedListValues() {
+        Map<String, List<Integer>> mapOfIntegers = new HashMap<>();
+        mapOfIntegers.put("firstList", Arrays.asList(ascendingOrder));
+        mapOfIntegers.put("secondList", Arrays.asList(descendingOrder));
+        ListUtilities.printMappedListValues(mapOfIntegers);
     }
 }
