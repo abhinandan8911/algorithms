@@ -6,7 +6,6 @@ import static org.abhi.algo.ListUtilities.*;
 
 public class DecisionTree {
 
-    public static final List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     private static List<Integer> firstList, secondList;
     private static Map<String, List<Integer>> returnMap;
 
@@ -42,7 +41,5 @@ public class DecisionTree {
             secondList.add(item);
         }
     }
-
-
 
 }

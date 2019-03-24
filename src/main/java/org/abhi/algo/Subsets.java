@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.abhi.algo.ListUtilities.*;
+import static org.abhi.algo.ListUtilities.copyList;
+import static org.abhi.algo.ListUtilities.getSumFromIntegerSet;
 
 public class Subsets {
 
@@ -22,17 +23,10 @@ public class Subsets {
     }
 
     public static List<Integer> partitionBasedOnTarget(int target, Integer... integers) {
-        List<Integer> bestList = new ArrayList<>();
         List<List<Integer>> contiguousSubsets = getContiguousSubsets(integers);
         List<List<Integer>> targetMatchingList = contiguousSubsets.stream().filter(ls -> getSumFromIntegerSet(ls) == target).collect(Collectors.toList());
         int maxSize = Integer.MIN_VALUE;
-        for(List<Integer> matchingList : targetMatchingList) {
-            if(matchingList.size() > maxSize) {
-                maxSize = matchingList.size();
-                bestList = copyList(matchingList);
-            }
-        }
-        return bestList;
+        return getList(maxSize, targetMatchingList);
     }
 
     public static List<Integer> maxContiguousSum(Integer...integers) {
@@ -47,5 +41,55 @@ public class Subsets {
             }
         }
         return bestList;
+    }
+
+    public static List<Integer> getZeroSumSubset(Integer...integers) {
+        List<List<Integer>> allSubsetsForIntegers = generateSubsets(integers);
+        int maxLength = Integer.MIN_VALUE;
+        List<List<Integer>> zeroSumSubsetList = allSubsetsForIntegers.stream().filter(subset -> getSumFromIntegerSet(subset) == 0).collect(Collectors.toList());
+        return getList(maxLength, zeroSumSubsetList);
+    }
+
+    private static List<Integer> getList(int maxLength, List<List<Integer>> zeroSumSubsetList) {
+        List<Integer> longestZeroSubset = new ArrayList<>();
+        for (List<Integer> zeroSubset : zeroSumSubsetList) {
+            if (zeroSubset.size() > maxLength) {
+                maxLength = zeroSubset.size();
+                longestZeroSubset = copyList(zeroSubset);
+            }
+        }
+        return longestZeroSubset;
+    }
+
+    public static List<List<Integer>> generateSubsets(Integer...integers) {
+        List<List<Integer>> subsets = new ArrayList<>();
+        List<String> bitRepresentedSubsets = subsetHelper(integers);
+        for(String eachString : bitRepresentedSubsets) {
+            List<Integer> subset = new ArrayList<>();
+            for (int i = 0; i < eachString.length(); i++) {
+                if(eachString.charAt(i) == '1') {
+                    subset.add(integers[i]);
+                }
+            }
+            if(!subset.isEmpty()) {
+                subsets.add(subset);
+            }
+        }
+        return subsets;
+    }
+
+    public static List<String> subsetHelper(Integer[] src) {
+        List<String> listOfBitString = new ArrayList<>();
+        Double maxNumber = Math.pow(2, src.length) - 1;
+        int maxBits = Integer.toBinaryString(maxNumber.intValue()).length();
+        for (int i = 0; i <= maxNumber; i++) {
+            String bitRepresentation = Integer.toBinaryString(i);
+            String str = "";
+            for (int j = 0; j < (maxBits - bitRepresentation.length()); j++) {
+                str += "0";
+            }
+            listOfBitString.add(str + bitRepresentation);
+        }
+        return listOfBitString;
     }
 }
