@@ -54,4 +54,10 @@ public class SubsetsTest {
         List<Integer> longestZeroSubset = Subsets.exhaustiveSearchForZeroSubset(testZerSumSubset);
         System.out.println("The subset is : " + ListUtilities.printList(longestZeroSubset));
     }
+
+    @Test
+    public void getAllStringPermutations() {
+        List<String> permutedString = Subsets.getAllStringPermutations("ABC");
+        System.out.println("The permuted strings are : " + ListUtilities.printList(permutedString));
+    }
 }

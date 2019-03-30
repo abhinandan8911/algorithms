@@ -9,6 +9,7 @@ import static org.abhi.algo.ListUtilities.*;
 public class Subsets {
 
     private static List<Integer> bestZeroSumList;
+    private static List<String> allStringPermutationList;
 
 
     public static List<List<Integer>> getContiguousSubsets(Integer... integers) {
@@ -111,6 +112,26 @@ public class Subsets {
             exhaustiveSearchHelper(index + 1, srcList, intermediateSolutionList);
             intermediateSolutionList.remove(srcList[index]);
             exhaustiveSearchHelper(index + 1, srcList, intermediateSolutionList);
+        }
+    }
+
+    public static List<String> getAllStringPermutations(String orig) {
+        allStringPermutationList = new ArrayList<>();
+        getAllStringPermutationsHelper("", orig);
+        return allStringPermutationList;
+    }
+
+    private static void getAllStringPermutationsHelper(String soFar, String remaining) {
+        if(remaining.isEmpty()) {
+            allStringPermutationList.add(soFar);
+        }
+        else {
+            for (int i = 0; i < remaining.length(); i++) {
+                String beforeIndex = remaining.substring(0, i);
+                String afterIndex = remaining.substring(i + 1);
+                String newRemaining = beforeIndex + afterIndex;
+                getAllStringPermutationsHelper(soFar + remaining.charAt(i), newRemaining);
+            }
         }
     }
 }
