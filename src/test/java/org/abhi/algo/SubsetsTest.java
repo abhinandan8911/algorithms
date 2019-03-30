@@ -60,4 +60,10 @@ public class SubsetsTest {
         List<String> permutedString = Subsets.getAllStringPermutations("ABC");
         System.out.println("The permuted strings are : " + ListUtilities.printList(permutedString));
     }
+
+    @Test
+    public void getExhaustiveSubsetList() {
+        List<List<Integer>> subsetList = Subsets.getExhaustiveSubsetList(1, 2, 3);
+        subsetList.forEach(list -> System.out.println("Subset is : " + ListUtilities.printList(list)));
+    }
 }

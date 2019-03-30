@@ -1,6 +1,7 @@
 package org.abhi.algo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,7 @@ public class Subsets {
 
     private static List<Integer> bestZeroSumList;
     private static List<String> allStringPermutationList;
+    private static List<List<Integer>> exhaustiveSubsetList;
 
 
     public static List<List<Integer>> getContiguousSubsets(Integer... integers) {
@@ -132,6 +134,24 @@ public class Subsets {
                 String newRemaining = beforeIndex + afterIndex;
                 getAllStringPermutationsHelper(soFar + remaining.charAt(i), newRemaining);
             }
+        }
+    }
+
+    public static List<List<Integer>> getExhaustiveSubsetList(Integer...integers) {
+        exhaustiveSubsetList = new ArrayList<>();
+        getExhaustiveSubsetListHelper(new ArrayList<>(), new ArrayList<>(Arrays.asList(integers)));
+        return exhaustiveSubsetList;
+    }
+
+    private static void getExhaustiveSubsetListHelper(List<Integer> sofar, List<Integer> remainingIntegers) {
+        if(remainingIntegers.isEmpty()) {
+            exhaustiveSubsetList.add(sofar);
+        }
+        else {
+            sofar.add(remainingIntegers.get(0));
+            getExhaustiveSubsetListHelper(copyList(sofar), copyList(remainingIntegers.subList(1, remainingIntegers.size())));
+            sofar.remove(remainingIntegers.get(0));
+            getExhaustiveSubsetListHelper(copyList(sofar), copyList(remainingIntegers.subList(1, remainingIntegers.size())));
         }
     }
 }
