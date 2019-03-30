@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.abhi.algo.ListUtilities.copyList;
-import static org.abhi.algo.ListUtilities.getSumFromIntegerSet;
+import static org.abhi.algo.ListUtilities.*;
 
 public class Subsets {
+
+    private static List<Integer> bestZeroSumList;
 
 
     public static List<List<Integer>> getContiguousSubsets(Integer... integers) {
@@ -89,5 +90,27 @@ public class Subsets {
             listOfBitString.add(str + bitRepresentation);
         }
         return listOfBitString;
+    }
+
+    public static List<Integer> exhaustiveSearchForZeroSubset(Integer... integers) {
+        bestZeroSumList = new ArrayList<>();
+        exhaustiveSearchHelper(0, integers, new ArrayList<>());
+        return bestZeroSumList;
+    }
+
+    private static void exhaustiveSearchHelper(int index, Integer[] srcList, List<Integer> intermediateSolutionList) {
+        if(index > srcList.length - 1) {
+            if(ListUtilities.getSumFromIntegerSet(intermediateSolutionList) == 0) {
+                if(intermediateSolutionList.size() > bestZeroSumList.size()) {
+                    bestZeroSumList = copyList(intermediateSolutionList);
+                }
+            }
+        }
+        else {
+            intermediateSolutionList.add(srcList[index]);
+            exhaustiveSearchHelper(index + 1, srcList, intermediateSolutionList);
+            intermediateSolutionList.remove(srcList[index]);
+            exhaustiveSearchHelper(index + 1, srcList, intermediateSolutionList);
+        }
     }
 }

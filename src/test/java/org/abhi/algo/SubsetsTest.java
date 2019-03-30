@@ -48,4 +48,10 @@ public class SubsetsTest {
         List<Integer> longestZeroSubset = Subsets.getZeroSumSubset(testZerSumSubset);
         System.out.println("The subset is : " + ListUtilities.printList(longestZeroSubset));
     }
+
+    @Test
+    public void exhaustiveSearchForZeroSubset() {
+        List<Integer> longestZeroSubset = Subsets.exhaustiveSearchForZeroSubset(testZerSumSubset);
+        System.out.println("The subset is : " + ListUtilities.printList(longestZeroSubset));
+    }
 }
