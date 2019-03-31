@@ -80,6 +80,15 @@ public class Network {
         }
     }
 
+    public static boolean isConnected(Node node, List<Node> allNodes) {
+        nonRecursiveBreadthFirstTravel(node, System.out::println);
+        boolean isVisited = true;
+        for(Node singleNode :allNodes) {
+            isVisited = isVisited && singleNode.isVisited();
+        }
+        return isVisited;
+    }
+
     private static boolean validateLinks(Node source, Link[] links) {
         boolean isValidLink = true;
         for (Link link: links) {

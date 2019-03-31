@@ -3,11 +3,14 @@ package org.abhi.algo;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class NetworkTest {
 
     private Network.Node testNode;
+    private List<Network.Node> allNodes;
 
     @Before
     public void setUp() throws Exception {
@@ -17,6 +20,13 @@ public class NetworkTest {
         Network.Node node3 = Network.createNode("node2_to_node3");
         Network.Node node4 = Network.createNode("node2_to_node4");
         Network.Node node5 = Network.createNode("node4_to_node5");
+
+        allNodes = new ArrayList<>();
+        allNodes.add(node1);
+        allNodes.add(node2);
+        allNodes.add(node3);
+        allNodes.add(node4);
+        allNodes.add(node5);
 
         Network.Link linkToNode1 = Network.createLink(1, testNode, node1);
         Network.Link linkToNode2 = Network.createLink(2, testNode, node2);
@@ -49,5 +59,10 @@ public class NetworkTest {
     public void nonRecursiveBreadthFirstTravel() {
         Consumer<Network.Node> nodeConsumer = node ->System.out.println("Processing the node non-recursively breadth first - " + node.getName());
         Network.nonRecursiveBreadthFirstTravel(testNode, nodeConsumer);
+    }
+
+    @Test
+    public void isConnected() {
+        System.out.println("Is connected - " + Network.isConnected(testNode, allNodes));
     }
 }
