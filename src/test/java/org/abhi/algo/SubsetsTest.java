@@ -66,4 +66,15 @@ public class SubsetsTest {
         List<List<Integer>> subsetList = Subsets.getExhaustiveSubsetList(1, 2, 3);
         subsetList.forEach(list -> System.out.println("Subset is : " + ListUtilities.printList(list)));
     }
+
+    @Test
+    public void matchStringToLexicon() {
+        String matchingString = Subsets.matchingStringLexicon("olleH", Arrays.asList("How", "are", "you", "hello", "Hello"));
+        if(matchingString.isEmpty()) {
+            System.out.println("No matching strings found");
+        }
+        else {
+            System.out.println("Matching String is - " + matchingString);
+        }
+    }
 }

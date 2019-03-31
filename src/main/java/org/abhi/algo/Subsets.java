@@ -154,4 +154,23 @@ public class Subsets {
             getExhaustiveSubsetListHelper(copyList(sofar), copyList(remainingIntegers.subList(1, remainingIntegers.size())));
         }
     }
+
+    public static String matchingStringLexicon(String givenString, List<String> lexicon) {
+        return matchStringToLexiconHelper("", givenString, lexicon);
+    }
+    private static String matchStringToLexiconHelper(String soFar, String remaining, List<String> lexicon) {
+        if(remaining.isEmpty()) {
+            return lexicon.contains(soFar) ? soFar : "";
+        }
+        else {
+            for (int i = 0; i < remaining.length(); i++) {
+                String newRemaining = remaining.substring(0, i) + remaining.substring(i + 1);
+                String found = matchStringToLexiconHelper(soFar + remaining.charAt(i), newRemaining, lexicon);
+                if(!found.isEmpty()) {
+                    return found;
+                }
+            }
+        }
+        return "";
+    }
 }
