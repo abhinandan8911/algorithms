@@ -1,8 +1,6 @@
 package org.abhi.algo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -31,15 +29,53 @@ public class Network {
     }
 
     public static void recursiveDepthFirstTravel(Node startNode, Consumer<Node> nodeConsumer) {
-        startNode.setVisted(true);
+        startNode.setVisited(true);
         nodeConsumer.accept(startNode);
         for (Link link: startNode.getLinks()) {
             Node nextNode = link.getNodes()[1];
-            if(!nextNode.isVisted()) {
+            if(!nextNode.isVisited()) {
                 recursiveDepthFirstTravel(link.getNodes()[1], nodeConsumer);
             }
             else {
                 System.out.println("Ignoring the visited Node - " + nextNode);
+            }
+        }
+    }
+
+    public static void nonRecursiveDepthFirstTravel(Node startNode, Consumer<Node> nodeConsumer) {
+        Stack<Node> nodeStack = new Stack<>();
+        nodeStack.push(startNode);
+        while (!nodeStack.empty()) {
+            Node node = nodeStack.pop();
+            node.setVisited(true);
+            nodeConsumer.accept(node);
+            for (Link link: node.getLinks()) {
+                Node nextNode = link.getNodes()[1];
+                if(!nextNode.isVisited()) {
+                    nodeStack.push(nextNode);
+                }
+                else {
+                    System.out.println("Ignoring the visited Node - " + nextNode);
+                }
+            }
+        }
+    }
+
+    public static void nonRecursiveBreadthFirstTravel(Node startNode, Consumer<Node> nodeConsumer) {
+        Queue<Node> nodeQueue = new LinkedList<>();
+        nodeQueue.offer(startNode);
+        while(!nodeQueue.isEmpty()) {
+            Node node = nodeQueue.poll();
+            node.setVisited(true);
+            nodeConsumer.accept(node);
+            for (Link link: node.getLinks()) {
+                Node nextNode = link.getNodes()[1];
+                if(!nextNode.isVisited()) {
+                    nodeQueue.offer(nextNode);
+                }
+                else {
+                    System.out.println("Ignoring the visited Node - " + nextNode);
+                }
             }
         }
     }
@@ -54,19 +90,19 @@ public class Network {
 
     public static class Node {
         private final String name;
-        private boolean isVisted = false;
+        private boolean isVisited = false;
         private List<Link> links = new ArrayList<>();
 
         public Node(String name) {
             this.name = name;
         }
 
-        public boolean isVisted() {
-            return isVisted;
+        public boolean isVisited() {
+            return isVisited;
         }
 
-        public void setVisted(boolean visted) {
-            isVisted = visted;
+        public void setVisited(boolean visited) {
+            isVisited = visited;
         }
 
         public List<Link> getLinks() {
@@ -85,7 +121,7 @@ public class Network {
         public String toString() {
             return "Node{" +
                     "name='" + name + '\'' +
-                    ", isVisted=" + isVisted +
+                    ", isVisited=" + isVisited +
                     ", links=" + links +
                     '}';
         }

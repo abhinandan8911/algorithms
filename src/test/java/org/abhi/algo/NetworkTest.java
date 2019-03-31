@@ -37,7 +37,19 @@ public class NetworkTest {
 
     @Test
     public void recursiveDepthFirstTravel() {
-        Consumer<Network.Node> nodeConsumer = node ->System.out.println("Processing the node - " + node.getName());
+        Consumer<Network.Node> nodeConsumer = node ->System.out.println("Processing the node recursively - " + node.getName());
         Network.recursiveDepthFirstTravel(testNode, nodeConsumer);
+    }
+
+    @Test
+    public void nonRecursiveDepthFirstTravel() {
+        Consumer<Network.Node> nodeConsumer = node ->System.out.println("Processing the node non-recursively depth first - " + node.getName());
+        Network.nonRecursiveDepthFirstTravel(testNode, nodeConsumer);
+    }
+
+    @Test
+    public void nonRecursiveBreadthFirstTravel() {
+        Consumer<Network.Node> nodeConsumer = node ->System.out.println("Processing the node non-recursively breadth first - " + node.getName());
+        Network.nonRecursiveBreadthFirstTravel(testNode, nodeConsumer);
     }
 }
