@@ -1,8 +1,10 @@
 package org.abhi.algo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class Network {
 
@@ -84,6 +86,7 @@ public class Network {
             return "Node{" +
                     "name='" + name + '\'' +
                     ", isVisted=" + isVisted +
+                    ", links=" + links +
                     '}';
         }
     }
@@ -106,8 +109,10 @@ public class Network {
 
         @Override
         public String toString() {
+            String nodeNames = Arrays.stream(getNodes()).map(Node::getName).collect(Collectors.joining(" , "));
             return "Link{" +
-                    "cost=" + cost +
+                    "cost=" + getCost() +
+                    " and connected nodes=" + nodeNames +
                     '}';
         }
     }
