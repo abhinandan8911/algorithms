@@ -28,13 +28,13 @@ public class Network {
         }
     }
 
-    public static void recursiveDepthFirstTravel(Node startNode, Consumer<Node> nodeConsumer) {
+    public static void recursiveBreadthFirstTravel(Node startNode, Consumer<Node> nodeConsumer) {
         startNode.setVisited(true);
         nodeConsumer.accept(startNode);
         for (Link link: startNode.getLinks()) {
             Node nextNode = link.getNodes()[1];
             if(!nextNode.isVisited()) {
-                recursiveDepthFirstTravel(link.getNodes()[1], nodeConsumer);
+                recursiveBreadthFirstTravel(link.getNodes()[1], nodeConsumer);
             }
             else {
                 System.out.println("Ignoring the visited Node - " + nextNode);

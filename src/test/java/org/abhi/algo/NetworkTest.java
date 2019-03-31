@@ -5,8 +5,6 @@ import org.junit.Test;
 
 import java.util.function.Consumer;
 
-import static org.junit.Assert.*;
-
 public class NetworkTest {
 
     private Network.Node testNode;
@@ -38,7 +36,7 @@ public class NetworkTest {
     @Test
     public void recursiveDepthFirstTravel() {
         Consumer<Network.Node> nodeConsumer = node ->System.out.println("Processing the node recursively - " + node.getName());
-        Network.recursiveDepthFirstTravel(testNode, nodeConsumer);
+        Network.recursiveBreadthFirstTravel(testNode, nodeConsumer);
     }
 
     @Test
