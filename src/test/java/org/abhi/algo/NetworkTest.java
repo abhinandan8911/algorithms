@@ -66,7 +66,7 @@ public class NetworkTest {
 
     @Test
     public void isConnected() {
-        System.out.println("Is connected - " + Network.isConnected(testNode, allNodes));
+        System.out.println("Is connected - " + Network.isConnected(testNode));
     }
 
     @Test

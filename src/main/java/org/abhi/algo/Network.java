@@ -80,8 +80,9 @@ public class Network {
         }
     }
 
-    public static boolean isConnected(Node node, List<Node> allNodes) {
+    public static boolean isConnected(Node node) {
         nonRecursiveBreadthFirstTravel(node, System.out::println);
+        List<Node> allNodes = getAllNodes(node);
         for(Node singleNode :allNodes) {
             if(!singleNode.isVisited()) {
                 return false;
