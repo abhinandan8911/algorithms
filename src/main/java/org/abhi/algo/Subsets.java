@@ -132,6 +132,7 @@ public class Subsets {
                 String beforeIndex = remaining.substring(0, i);
                 String afterIndex = remaining.substring(i + 1);
                 String newRemaining = beforeIndex + afterIndex;
+                System.out.println("So Far - " + soFar + " remaining - " + remaining);
                 getAllStringPermutationsHelper(soFar + remaining.charAt(i), newRemaining);
             }
         }
