@@ -16,12 +16,12 @@ public class NetworkTest {
 
     @Before
     public void setUp() throws Exception {
-        testNode = Network.createNode("Test Node");
-        Network.Node node1 = Network.createNode("Test_to_node1");
-        Network.Node node2 = Network.createNode("Test_to_node2");
-        Network.Node node3 = Network.createNode("node2_to_node3");
-        Network.Node node4 = Network.createNode("node2_to_node4");
-        Network.Node node5 = Network.createNode("node4_to_node5");
+        testNode = Network.createNode("0");
+        Network.Node node1 = Network.createNode("1");
+        Network.Node node2 = Network.createNode("2");
+        Network.Node node3 = Network.createNode("3");
+        Network.Node node4 = Network.createNode("4");
+        Network.Node node5 = Network.createNode("5");
 
         allNodes = new ArrayList<>();
         allNodes.add(testNode);
@@ -87,5 +87,47 @@ public class NetworkTest {
         List<Network.Node> minimalList = Network.createMinimalSpanningTree(testNode);
         System.out.println("The Minimal Tree is - " + ListUtilities.printList(minimalList));
         assertEquals(allNodes.size(), minimalList.size());
+    }
+
+
+    @Test
+    public void createDistanceArray() {
+        int[][] distanceArray = Network.createDistanceArray(testNode);
+        for (int i = 0; i < distanceArray.length; i++) {
+            for (int j = 0; j < distanceArray.length; j++) {
+                System.out.print(distanceArray[i][j] + " , ");
+            }
+            System.out.println();
+        }
+    }
+
+    @Test
+    public void createViaArray() {
+        int[][] viaArray = Network.createViaArray(Network.createDistanceArray(testNode));
+        for (int i = 0; i < viaArray.length; i++) {
+            for (int j = 0; j < viaArray.length; j++) {
+                System.out.print(viaArray[i][j] + " , ");
+            }
+            System.out.println();
+        }
+    }
+
+    @Test
+    public void improveViaArray() {
+        int[][] viaArray = Network.improveViaArray(Network.createDistanceArray(testNode));
+        for (int i = 0; i < viaArray.length; i++) {
+            for (int j = 0; j < viaArray.length; j++) {
+                System.out.print(viaArray[i][j] + " , ");
+            }
+            System.out.println();
+        }
+    }
+
+    @Test
+    public void findShortestPath() {
+        int[][] distanceArray = Network.createDistanceArray(testNode);
+        int[][] viaArray = Network.improveViaArray(distanceArray);
+        List<Integer> shortestPathList = Network.findShortestPath(0, 1, distanceArray, viaArray);
+        System.out.println("The shortest path is : " + ListUtilities.printList(shortestPathList));
     }
 }

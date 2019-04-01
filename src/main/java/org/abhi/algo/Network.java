@@ -176,6 +176,83 @@ public class Network {
         return minimalTreeList;
     }
 
+    public static int[][] createDistanceArray(Node startNode) {
+        List<Node> nodeList = getAllNodes(startNode);
+        int row = nodeList.size();
+        int column = nodeList.size();
+        int[][] distanceArray = new int[row][column];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if(i == j) {
+                    distanceArray[i][j] = 0;
+                }
+                else {
+                    distanceArray[i][j] = Integer.MAX_VALUE;
+                }
+            }
+        }
+        for(Node node : nodeList) {
+            int sourceNode = Integer.valueOf(node.getName());
+            for(Link link : node.getLinks()) {
+                Node connectedNode = link.getNodes()[1];
+                int destinationNode = Integer.valueOf(connectedNode.getName());
+                distanceArray[sourceNode][destinationNode] = link.getCost();
+            }
+        }
+        return distanceArray;
+    }
+
+    public static int[][] createViaArray(int[][] distanceArray) {
+        int row = distanceArray.length;
+        int column = distanceArray.length;
+        int[][] viaArray = new int[row][column];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if(distanceArray[i][j] < Integer.MAX_VALUE) {
+                    viaArray[i][j] = j;
+                }
+                else {
+                    viaArray[i][j] = -1;
+                }
+            }
+        }
+        return viaArray;
+    }
+
+    public static int[][] improveViaArray(int[][] distanceArray) {
+        int[][] viaArray = createViaArray(distanceArray);
+        for(int via = 0; via < distanceArray.length; via++) {
+            for (int fromNode = 0; fromNode < distanceArray.length; fromNode++) {
+                for (int toNode = 0; toNode < distanceArray.length; toNode++) {
+                    int newDistance = distanceArray[fromNode][via] + distanceArray[via][toNode];
+                    if(newDistance < distanceArray[fromNode][toNode]) {
+                        distanceArray[fromNode][toNode] = newDistance;
+                        viaArray[fromNode][toNode] = via;
+                    }
+                }
+            }
+        }
+        return viaArray;
+    }
+
+    public static List<Integer> findShortestPath(int startNode, int endNode, final int[][] distanceArray, final int[][] viaArray) {
+        if(distanceArray[startNode][endNode] == Integer.MAX_VALUE) {
+            return Collections.emptyList();
+        }
+        int viaNode = viaArray[startNode][endNode];
+        if(viaNode == endNode) {
+            List<Integer> returnList = new ArrayList<>();
+            returnList.add(endNode);
+            return returnList;
+        }
+        else {
+            List<Integer> returnList = new ArrayList<>();
+            returnList.addAll(findShortestPath(startNode, viaNode, distanceArray, viaArray));
+            returnList.addAll(findShortestPath(viaNode, endNode, distanceArray, viaArray));
+            return returnList;
+        }
+    }
+
     public static class Node {
         private final String name;
         private boolean isVisited = false;
