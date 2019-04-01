@@ -81,4 +81,11 @@ public class NetworkTest {
         System.out.println("The Node List is : " + ListUtilities.printList(nodeList));
         assertEquals(allNodes.size(), nodeList.size());
     }
+
+    @Test
+    public void createMinimalSpanningTree() {
+        List<Network.Node> minimalList = Network.createMinimalSpanningTree(testNode);
+        System.out.println("The Minimal Tree is - " + ListUtilities.printList(minimalList));
+        assertEquals(allNodes.size(), minimalList.size());
+    }
 }

@@ -137,6 +137,46 @@ public class Network {
         return nodeList;
     }
 
+    public static List<Node> createMinimalSpanningTree(Node startNode) {
+        List<Node> minimalTreeList = new ArrayList<>();
+        List<Link> candidateList = new ArrayList<>();
+        minimalTreeList.add(startNode);
+        startNode.setVisited(true);
+        candidateList.addAll(startNode.getLinks());
+        while (!candidateList.isEmpty()) {
+            int minCost = Integer.MAX_VALUE;
+            Node possibleNode = null;
+            Link matchingLink = null;
+            Link markForRemoval = null;
+            for(Link link : candidateList) {
+                Node nextNode = link.getNodes()[1];
+                if(nextNode.isVisited()) {
+                    markForRemoval = link;
+                }
+                if(link.getCost() < minCost) {
+                    if(!minimalTreeList.contains(nextNode) && !nextNode.isVisited()) {
+                        minCost = link.getCost();
+                        possibleNode = nextNode;
+                        matchingLink = link;
+                    }
+                }
+            }
+            if(Objects.nonNull(possibleNode)) {
+                possibleNode.setVisited(true);
+                minimalTreeList.add(possibleNode);
+                System.out.println("Cost of the added Node is - " + matchingLink.getCost());
+                candidateList.addAll(possibleNode.getLinks());
+                if(Objects.nonNull(matchingLink)) {
+                    candidateList.remove(matchingLink);
+                }
+            }
+            if(Objects.nonNull(markForRemoval)) {
+                candidateList.remove(markForRemoval);
+            }
+        }
+        return minimalTreeList;
+    }
+
     public static class Node {
         private final String name;
         private boolean isVisited = false;
