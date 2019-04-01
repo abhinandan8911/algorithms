@@ -82,11 +82,12 @@ public class Network {
 
     public static boolean isConnected(Node node, List<Node> allNodes) {
         nonRecursiveBreadthFirstTravel(node, System.out::println);
-        boolean isVisited = true;
         for(Node singleNode :allNodes) {
-            isVisited = isVisited && singleNode.isVisited();
+            if(!singleNode.isVisited()) {
+                return false;
+            }
         }
-        return isVisited;
+        return true;
     }
 
     private static boolean validateLinks(Node source, Link[] links) {
@@ -97,9 +98,49 @@ public class Network {
         return isValidLink;
     }
 
+    public static List<Node> getAllNodes(Node startNode) {
+        Stack<Node> nodeStack = new Stack<>();
+        List<Node> nodeList = new ArrayList<>();
+        nodeStack.push(startNode);
+        while (!nodeStack.empty()) {
+            Node node = nodeStack.pop();
+            node.setVisited(true);
+            nodeList.add(node);
+            for(Link link : node.getLinks()) {
+                Node nextNode = link.getNodes()[1];
+                link.setVisited(true);
+                if(!nextNode.isVisited()) {
+                    nodeStack.push(nextNode);
+                }
+            }
+        }
+        return nodeList;
+    }
+
+    public static List<Node> createSpanningTree(Node startNode) {
+        Stack<Node> nodeStack = new Stack<>();
+        List<Node> nodeList = new ArrayList<>();
+        nodeStack.push(startNode);
+        while(!nodeStack.empty()) {
+            Node node = nodeStack.pop();
+            node.setVisited(true);
+            nodeList.add(node);
+            for(Link link : node.getLinks()) {
+                link.setVisited(true);
+                Node nextNode = link.getNodes()[1];
+                if(!nextNode.isVisited()) {
+                    nodeStack.push(nextNode);
+                    nextNode.setFromNode(node);
+                }
+            }
+        }
+        return nodeList;
+    }
+
     public static class Node {
         private final String name;
         private boolean isVisited = false;
+        private Node fromNode;
         private List<Link> links = new ArrayList<>();
 
         public Node(String name) {
@@ -126,6 +167,14 @@ public class Network {
             return name;
         }
 
+        public Node getFromNode() {
+            return fromNode;
+        }
+
+        public void setFromNode(Node fromNode) {
+            this.fromNode = fromNode;
+        }
+
         @Override
         public String toString() {
             return "Node{" +
@@ -139,6 +188,7 @@ public class Network {
     public static class Link {
         private final Integer cost;
         private final Node[] nodes;
+        private boolean isVisited = false;
         public Link(Integer cost, Node[] nodes) {
             this.cost = cost;
             this.nodes = nodes;
@@ -150,6 +200,14 @@ public class Network {
 
         public Node[] getNodes() {
             return nodes;
+        }
+
+        public boolean isVisited() {
+            return isVisited;
+        }
+
+        public void setVisited(boolean visited) {
+            isVisited = visited;
         }
 
         @Override

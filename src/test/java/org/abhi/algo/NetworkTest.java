@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static org.junit.Assert.assertEquals;
+
 public class NetworkTest {
 
     private Network.Node testNode;
@@ -22,6 +24,7 @@ public class NetworkTest {
         Network.Node node5 = Network.createNode("node4_to_node5");
 
         allNodes = new ArrayList<>();
+        allNodes.add(testNode);
         allNodes.add(node1);
         allNodes.add(node2);
         allNodes.add(node3);
@@ -64,5 +67,18 @@ public class NetworkTest {
     @Test
     public void isConnected() {
         System.out.println("Is connected - " + Network.isConnected(testNode, allNodes));
+    }
+
+    @Test
+    public void createSpanningTree() {
+        List<Network.Node> nodeList = Network.createSpanningTree(testNode);
+        System.out.println("The Node List is : " + ListUtilities.printList(nodeList));
+    }
+
+    @Test
+    public void getAllNodes() {
+        List<Network.Node> nodeList = Network.getAllNodes(testNode);
+        System.out.println("The Node List is : " + ListUtilities.printList(nodeList));
+        assertEquals(allNodes.size(), nodeList.size());
     }
 }
