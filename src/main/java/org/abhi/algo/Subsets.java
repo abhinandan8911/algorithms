@@ -173,4 +173,20 @@ public class Subsets {
         }
         return "";
     }
+
+    public static List<String> getAllStringSubSets(String source) {
+        List<String> stringSubsetList = new ArrayList<>();
+        getAllStringSubsetHelper("", source, stringSubsetList);
+        return stringSubsetList;
+    }
+
+    private static void getAllStringSubsetHelper(String soFar, String remaining, List<String> subsetList) {
+        if(remaining.isEmpty()) {
+            subsetList.add(soFar);
+        }
+        else {
+            getAllStringSubsetHelper(soFar + remaining.charAt(0), remaining.substring(1), subsetList);
+            getAllStringSubsetHelper(soFar, remaining.substring(1), subsetList);
+        }
+    }
 }

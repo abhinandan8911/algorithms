@@ -77,4 +77,10 @@ public class SubsetsTest {
             System.out.println("Matching String is - " + matchingString);
         }
     }
+
+    @Test
+    public void getAllStringSubSets() {
+        List<String> subSets = Subsets.getAllStringSubSets("ABC");
+        System.out.println("The subsets are : " + ListUtilities.printList(subSets));
+    }
 }
