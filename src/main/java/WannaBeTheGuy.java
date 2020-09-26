@@ -12,7 +12,7 @@ public class WannaBeTheGuy {
         }
         List<String> littleY = new ArrayList<>();
         for (int i = 1; i < inputLine2.length; i++) {
-            littleX.add(inputLine2[i]);
+            littleY.add(inputLine2[i]);
         }
         Set<Integer> levels = new HashSet<>();
 
